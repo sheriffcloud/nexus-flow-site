@@ -1,37 +1,89 @@
-# 🌐 Netlify Website (Terraform Managed)
+---
+#Github
+Github repo url: https://github.com/sheriffcloud/nexus-flow-site
 
-This repository contains a static website deployed on **Netlify**, with all infrastructure managed via **Terraform**.
+# Terraform + Netlify Deployment with HCP Terraform
+
+This project demonstrates how to provision and manage a static site on **Netlify** using **Terraform**, with remote state management through **HCP Terraform (Terraform Cloud)**.
 
 ---
 
-## 📂 Project Structure
-- `website/` → Source code for the static site (HTML, CSS, JS, etc.)
-- `01-providers` → Terraform Netlify providers configuration 
-- `02-backend` → Terraform remote state file configuration (Terraform Cloud)
-- `03-main.tf` → Main Terraform configuration
-- `04-variables.tf` → Input variables
-- `05-outputs.tf` → Terraform outputs (e.g., output site URL)
-- `README.md` → Project documentation
+##  Prerequisites
+- **Terraform**: v1.5+ installed locally.
+- **Accounts Needed**:
+  - [Netlify Account](https://www.netlify.com/)
+  - [HCP Terraform Account](https://app.terraform.io/)
+- **Netlify Personal Access Token**: generated from your Netlify user settings.
 
 ---
 
-## 🚀 Deployment Workflow
-1. Source code is hosted in this repository.
-2. Netlify site and resources are provisioned with Terraform.
-3. GitHub is connected to Netlify for **automatic builds**.
-4. Every push to the configured branch (`main` by default) triggers a new deploy on Netlify.
+##  Authentication & Configuration
+
+### 1. Connect to HCP Terraform
+Update your `backend` block with your **HCP Organization** and **Workspace**:
+
+```hcl
+terraform {
+  cloud {
+    organization = "your-org-name"
+    workspaces {
+      name = "your-workspace-name"
+    }
+  }
+}
+2. Set Netlify Credentials
+Export your Netlify token before running Terraform:
+set it in your HCP Terraform workspace environment variables.
+
+```
+## Variables
+Key variables are defined in variables.tf:
+
+site_name: Name of your Netlify site.
+netlify_api_token: your netlify token you generated earlier and added to HCP Terraform cloud
+netlify_team_slug: you can get your team slug from netflify team settings
 
 ---
+## Outputs
+site_url: This will output the url of the live site
+site_id: This will also output the site ID
 
-## ⚙️ Setup Instructions
-
-### Prerequisites
-- [Terraform](https://developer.hashicorp.com/terraform/downloads) installed  
-- Netlify account  
-- [Netlify Personal Access Token](https://docs.netlify.com/api/get-started/#authentication)
-
-### Initialize Terraform
-```bash
+---
+## Running Terraform
 terraform init
 terraform plan
-terraform apply -auto-approve
+terraform apply
+After apply, Terraform outputs:
+
+site_url → https://titanops.netlify.app/
+id → 473bac6d-49c9-4371-a24f-a9a007514e9a
+
+📂 .gitignore
+# .terraform (provider binaries, external module source code, …)
+**/.terraform/*
+# state files
+*.tfstate
+*.tfstate.*
+
+# Crash log files (if you run Terraform locally)
+crash.log
+crash.*.log
+
+# Variable files
+*.tfvars
+*.tfvars.json
+
+# Override files (HCL or JSON, depending on your configuration)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI configuration files
+.terraformrc
+terraform.rc
+
+2. ## Live Demo
+Live Site: https://titanops.netlify.app/
+
+![alt text](terraform apply.png)
