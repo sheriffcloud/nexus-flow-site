@@ -39,20 +39,20 @@ set it in your HCP Terraform workspace environment variables.
 ## Variables
 Key variables are defined in variables.tf:
 
-site_name: Name of your Netlify site.
-netlify_api_token: your netlify token you generated earlier and added to HCP Terraform cloud
-netlify_team_slug: you can get your team slug from netflify team settings
+site_name: Name of your Netlify site,
+netlify_api_token: your netlify token you generated earlier and added to HCP Terraform cloud,
+netlify_team_slug: you can get your team slug from netflify team settings.
 
 ---
 ## Outputs
-site_url: This will output the url of the live site
-site_id: This will also output the site ID
+site_url: This will output the url of the live site,
+site_id: This will also output the site ID.
 
 ---
 ## Running Terraform
-terraform init
-terraform plan
-terraform apply
+terraform init,
+terraform plan,
+terraform apply,
 After apply, Terraform outputs:
 
 site_url → https://titanops.netlify.app/ and 
