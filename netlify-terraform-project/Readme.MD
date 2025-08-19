@@ -55,7 +55,7 @@ terraform plan
 terraform apply
 After apply, Terraform outputs:
 
-site_url → https://titanops.netlify.app/
+site_url → https://titanops.netlify.app/ and 
 id → 473bac6d-49c9-4371-a24f-a9a007514e9a
 
 📂 .gitignore
